@@ -1,8 +1,7 @@
 #include <iostream>
-#include "Moduls.h"
-
-//variables globales
-int countRotationsValue = 0;
+#include "ConfigurarCerraduras.h"
+#include "CrearCerradura.h"
+#include "CrearMatrices.h"
 
 int main(){
 
