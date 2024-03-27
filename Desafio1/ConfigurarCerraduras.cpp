@@ -4,16 +4,17 @@
 int dimension = 0;
 bool verifyCenter;
 
-int ***arrayMatrices(int arrayLock[], int dimension){
-    int ***matrices = new int**[dimension];
+int ***arrayCreateMatrix(int *arrayKey){
 
-    for(int i = 0; i < dimension; i++){
-        matrices[i] = createMatrix(arrayLock[i]);
-    }
+    int numbofMatrix = sizeof(arrayKey)/sizeof(arrayKey[0]) - 1;
+    int ***matrices = new int **[numbofMatrix];
 
     return matrices;
 }
 
+void addMatrix(int ***arrayMatrix, int **newMatrix, int index ){ //El valor del index lo ponemos en el ciclo donde verificamos si la matriz es valida para agregar
+    arrayMatrix[index] = newMatrix;
+}
 
 bool comparisonCenterCoord (int fil,int col ){
     int centerCoord = dimension/2;
