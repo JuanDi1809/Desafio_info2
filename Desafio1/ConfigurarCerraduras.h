@@ -18,17 +18,6 @@ int ***arrayCreateMatrix(int *arrayKey[], int dimension);
 void addMatrix(int ***arrayMatrix, int **newMatrix, int index );
 
 /**
- * @brief comparisonMatrix Me compara el valor en la misma posicion de las dos matrices
- * @param originalMatrix El puntero a la matriz original
- * @param matrixChange El puntero de la matriz a la que se ha realizado un cambio
- * @param posComparisonValue El valor para determinar la comparacion entre los valores de las matrices
- * @param fil Fila donde esta el valor en la matriz
- * @param col Columna donde esta el valor en la matriz
- * @return El puntero de la matriz cambiada o un puntero nulo
- */
-int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col);
-
-/**
  * @brief comparisonCenterCoord
  * @param fil
  * @param col
