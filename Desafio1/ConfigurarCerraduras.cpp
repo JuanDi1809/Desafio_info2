@@ -16,15 +16,7 @@ void addMatrix(int ***arrayMatrix, int **newMatrix, int index ){ //El valor del 
     arrayMatrix[index] = newMatrix;
 }
 
-bool comparisonCenterCoord (int fil,int col ){
-    int centerCoord = dimension/2;
 
-    if(fil == col  && fil == centerCoord){
-        return true;
-    }
-
-    return false;
-}
 
 
 

@@ -46,3 +46,13 @@ int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posCompari
         return nullptr;
     }
 }
+
+bool comparisonCenterCoord (int fil,int col ){
+    int centerCoord = dimension/2;
+
+    if(fil == col  && fil == centerCoord){
+        return true;
+    }
+
+    return false;
+}

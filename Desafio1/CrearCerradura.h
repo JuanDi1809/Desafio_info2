@@ -20,5 +20,13 @@ int dimension(int fil, int col);
  */
 int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col);
 
+/**
+ * @brief comparisonCenterCoord
+ * @param fil
+ * @param col
+ * @return
+ */
+bool comparisonCenterCoord (int fil,int col );
+
 
 #endif // CREARCERRADURA_H
