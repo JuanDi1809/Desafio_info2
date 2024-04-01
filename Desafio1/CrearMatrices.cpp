@@ -1,10 +1,7 @@
 #include <iostream>
-int countRotationsValue = 0;
+//int countRotationsValue = 0;
 
 int **createMatrix(int dimension){
-    //Función encargada de crear una matriz de cualquier dimensión
-    //recibe un dato entero que especifica la dimensión de la matriz
-    //retorna la matriz creada
 
     int **newMatrix = new int *[dimension];
     int centerCoord = dimension / 2, value = 1;
@@ -43,9 +40,6 @@ int countRotations(){
 */
 
 int **changeMatrix(int **defaultMatrix, int dimension){
-    //Esta función se encarga de hacer el giro de la matriz 90 grados
-    //recibe un puntero que apunta a un array de arrays
-    //retorna la matriz modificada
 
     int **rotatedMatrix = new int *[dimension];
     int staticColumns = dimension-1;
@@ -62,9 +56,6 @@ int **changeMatrix(int **defaultMatrix, int dimension){
 }
 
 void showMatrix(int **matrix, int dimension){
-    //función que muestra la matriz en consola
-    //recibe la dimension de la matriz
-    //no retorna datos
 
     for(int i = 0; i < dimension;i++){
         for(int j = 0; j < dimension; j++){

@@ -7,7 +7,7 @@
  * @param col Una columna de la matriz
  * @return La dimension de la matriz
  */
-int dimension(int fil, int col);
+int dimensionMatrix(int fil, int col);
 
 /**
  * @brief comparisonMatrix Me compara el valor en la misma posicion de las dos matrices
@@ -26,7 +26,7 @@ int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posCompari
  * @param col
  * @return
  */
-bool comparisonCenterCoord (int fil,int col );
+//bool comparisonCenterCoord (int fil,int col );
 
 
 #endif // CREARCERRADURA_H

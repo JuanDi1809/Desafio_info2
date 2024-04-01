@@ -5,18 +5,59 @@
 
 int main(){
 
-    int dimension;
-    std::cout << "Ingresa la dimension de la matriz: ";std::cin>>dimension;
+    int key[] = {4,3,1,-1,1};
+    int *ptrKey = key;
+    int const keyDimension = 5;
+    int index = 0;
 
-    int **dataMatrix = createMatrix(dimension);
-    showMatrix(dataMatrix, dimension);
+    int ***arrayLocks = arrayCreateMatrix(keyDimension);
+    int fila = ptrKey[0];
+    int columna = ptrKey[1];
+    int dimension = dimensionMatrix(fila, columna);
+    int **matrix = createMatrix(dimension);
+    showMatrix(matrix, dimension);
 
-    //llamado de función de cambio
-    std::cout<<std::endl;
-    std::cout<<"nueva matriz"<<std::endl;
-    showMatrix(changeMatrix(dataMatrix, dimension), dimension);
+    addMatrix(arrayLocks, matrix, index);
 
-    deleteMemoryUsed(dataMatrix, dimension);
+    for(int i = 2; i < keyDimension; i++){
+        int comparisonValue = ptrKey[i];
+
+        if(comparisonValue == -1 || comparisonValue == 1){
+            int **verifyMatrix = nullptr;
+            int contRotatedMatrix = 1;
+
+            while(verifyMatrix == nullptr){
+                int **rotatedMatrix = changeMatrix(matrix, dimension);
+                showMatrix(rotatedMatrix,dimension);
+                verifyMatrix = comparisonMatrix(matrix, rotatedMatrix, comparisonValue, fila, columna);
+
+                if(verifyMatrix != nullptr){
+                    showMatrix(verifyMatrix,dimension);
+                    addMatrix(arrayLocks, verifyMatrix, index);
+                    matrix = rotatedMatrix;
+                    index++;
+                    break;
+                }
+                else if(contRotatedMatrix < 3){
+                    matrix = rotatedMatrix;
+                    contRotatedMatrix++;
+                }
+                else{
+                    dimension += 2;
+                    matrix = createMatrix(dimension);
+                }
+
+            }
+        }
+        else{
+            std::cout << "Hola";
+        }
+    }
+
+
+
     return 0;
 
 }
+
+

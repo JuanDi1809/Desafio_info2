@@ -7,7 +7,7 @@
  * @param dimension La dimension del arreglo de la llave
  * @return El puntero al arreglo de matrices
  */
-int ***arrayCreateMatrix(int *arrayKey[], int dimension);
+int ***arrayCreateMatrix( int dimension);
 
 /**
  * @brief addMatrix Es una funcion que me agregra una matriz en un arreglo de matrices
@@ -16,13 +16,5 @@ int ***arrayCreateMatrix(int *arrayKey[], int dimension);
  * @param index La posicion en la que va a estar la matriz en el arreglo
  */
 void addMatrix(int ***arrayMatrix, int **newMatrix, int index );
-
-/**
- * @brief comparisonCenterCoord
- * @param fil
- * @param col
- * @return
- */
-bool comparisonCenterCoord (int fil,int col );
 
 #endif // CONFIGURARCERRADURAS_H

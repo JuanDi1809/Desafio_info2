@@ -1,8 +1,16 @@
 #include <iostream>
-#include "CrearMatrices.h"
-#include <ConfigurarCerraduras.h>
+/*
+bool comparisonCenterCoord (int fil,int col ){
+    int centerCoord = dimension/2;
 
-int dimension(int fil, int col){
+    if(fil == col  && fil == centerCoord){
+        return true;
+    }
+
+    return false;
+}
+*/
+int dimensionMatrix(int fil, int col){
     if(fil > col){
         if(fil % 2 == 0){
             return ++fil;
@@ -20,12 +28,13 @@ int dimension(int fil, int col){
 }
 
 int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col){
-    verifyCenter = comparisonCenterCoord(fil, col);
+    //verifyCenter = comparisonCenterCoord(fil, col);
 
     switch(posComparisonValue){
 
     case -1:
         if(originalMatrix[fil][col] < matrixChange[fil][col]){
+            std::cout << originalMatrix[fil][col] << ' ' << matrixChange[fil][col];
             return matrixChange;
         }
         return nullptr;
@@ -47,12 +56,4 @@ int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posCompari
     }
 }
 
-bool comparisonCenterCoord (int fil,int col ){
-    int centerCoord = dimension/2;
 
-    if(fil == col  && fil == centerCoord){
-        return true;
-    }
-
-    return false;
-}

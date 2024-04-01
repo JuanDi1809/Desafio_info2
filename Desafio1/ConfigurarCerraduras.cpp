@@ -1,10 +1,6 @@
 #include <iostream>
-#include "CrearMatrices.h"
 
-int dimension = 0;
-bool verifyCenter;
-
-int ***arrayCreateMatrix(int *arrayKey, int dimension){
+int ***arrayCreateMatrix(int dimension){
 
     int numbofMatrix = dimension - 1;
     int ***matrices = new int **[numbofMatrix];
