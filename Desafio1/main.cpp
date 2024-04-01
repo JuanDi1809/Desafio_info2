@@ -15,6 +15,7 @@ int main(){
     int columna = ptrKey[1];
     int dimension = dimensionMatrix(fila, columna);
     int **matrix = createMatrix(dimension);
+    int **originalMatrix = matrix;
     showMatrix(matrix, dimension);
 
     addMatrix(arrayLocks, matrix, index);
@@ -29,12 +30,13 @@ int main(){
             while(verifyMatrix == nullptr){
                 int **rotatedMatrix = changeMatrix(matrix, dimension);
                 showMatrix(rotatedMatrix,dimension);
-                verifyMatrix = comparisonMatrix(matrix, rotatedMatrix, comparisonValue, fila, columna);
+                verifyMatrix = comparisonMatrix(originalMatrix, rotatedMatrix, comparisonValue, fila, columna);
 
                 if(verifyMatrix != nullptr){
                     showMatrix(verifyMatrix,dimension);
                     addMatrix(arrayLocks, verifyMatrix, index);
                     matrix = rotatedMatrix;
+                    originalMatrix = rotatedMatrix;
                     index++;
                     break;
                 }
