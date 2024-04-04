@@ -2,12 +2,38 @@
 #define CREARCERRADURA_H
 
 /**
+ * @brief estaEnBorde
+ * @param fila
+ * @param columna
+ * @param filas
+ * @param columnas
+ * @return
+ */
+bool onEdge(int fila, int columna, int dimension);
+
+/**
+ * @brief comparisonCenterCoord
+ * @param fil
+ * @param col
+ * @return
+ */
+bool comparisonCenterCoord (int fil,int col, int dimension );
+
+/**
  * @brief dimension Funcion que me crea la dimension de una matriz cuadrada impar
  * @param fil Una fila de la matriz
  * @param col Una columna de la matriz
  * @return La dimension de la matriz
  */
 int dimensionMatrix(int fil, int col);
+
+/**
+ * @brief expandedVerify
+ * @param fil
+ * @param col
+ * @return
+ */
+int expandedVerify(int fil, int col);
 
 /**
  * @brief comparisonMatrix Me compara el valor en la misma posicion de las dos matrices
@@ -19,14 +45,5 @@ int dimensionMatrix(int fil, int col);
  * @return El puntero de la matriz cambiada o un puntero nulo
  */
 int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col);
-
-/**
- * @brief comparisonCenterCoord
- * @param fil
- * @param col
- * @return
- */
-//bool comparisonCenterCoord (int fil,int col );
-
 
 #endif // CREARCERRADURA_H

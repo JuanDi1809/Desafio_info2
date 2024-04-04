@@ -23,5 +23,10 @@ void deleteMemoryUsed(int **matrix, int dimension);
  */
 int **changeMatrix(int **defaultMatrix, int dimension);
 
+/**
+ * @brief showMatrix
+ * @param matrix
+ * @param dimension
+ */
 void showMatrix(int **matrix, int dimension);
 #endif // CREARMATRICES_H
