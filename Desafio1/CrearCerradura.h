@@ -46,4 +46,11 @@ int expandedVerify(int fil, int col);
  */
 int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col);
 
+/**
+ * @brief oputa
+ * @param k
+ * @return
+ */
+int* createKeyArray(int k);
+
 #endif // CREARCERRADURA_H
