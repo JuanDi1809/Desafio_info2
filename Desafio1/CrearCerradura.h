@@ -33,7 +33,7 @@ int dimensionMatrix(int fil, int col);
  * @param col
  * @return
  */
-int expandedVerify(int fil, int col);
+int expandedVerify(int dimension);
 
 /**
  * @brief comparisonMatrix Me compara el valor en la misma posicion de las dos matrices
@@ -52,5 +52,8 @@ int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posCompari
  * @return
  */
 int* createKeyArray(int k);
+
+int findKeyDimension();
+void value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int *columna, int *dimension, int posComparisonValue);
 
 #endif // CREARCERRADURA_H

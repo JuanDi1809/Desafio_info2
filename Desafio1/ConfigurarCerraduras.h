@@ -15,6 +15,7 @@ int ***arrayCreateMatrix( int dimension);
  * @param newMatrix El puntero de la matriz a agregar
  * @param index La posicion en la que va a estar la matriz en el arreglo
  */
-void addMatrix(int ***arrayMatrix, int **newMatrix, int index );
+void addMatrix(int ***arrayMatrix, int **newMatrix);
+
 
 #endif // CONFIGURARCERRADURAS_H

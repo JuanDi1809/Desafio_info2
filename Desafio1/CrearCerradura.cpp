@@ -1,4 +1,10 @@
 #include <iostream>
+#include "CrearMatrices.h"
+#include "ConfigurarCerraduras.h"
+
+int index = 0;
+int amplifyMatrix = 0;
+int countArray = 2;
 
 bool onEdge(int fila, int columna, int dimension) {
     return (fila == 0 || fila == dimension - 1 || columna == 0 || columna == dimension - 1);
@@ -34,10 +40,11 @@ int dimensionMatrix(int fil, int col){
     }
     return 0;
 }
+int findKeyDimension(){
+    return countArray;
+}
 
-
-int expandedVerify(int fil, int col){
-    int dimension = dimensionMatrix(fil, col);
+int expandedVerify(int dimension){
     int verify;
 
     do{
@@ -50,17 +57,20 @@ int expandedVerify(int fil, int col){
             dimension += 2;
         }
 
-    }while(verify == 1);
+    }while(verify == 0);
 
     return dimension;
 }
 
-int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col){
+int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col, int dimension){
+    int auxFill = fil--;
+    int auxCol = col--;
+
 
     switch(posComparisonValue){
 
     case -1:
-        if(originalMatrix[fil][col] < matrixChange[fil][col]){
+        if(originalMatrix[auxFill][auxCol] < matrixChange[fil][col]){
             return matrixChange;
         }
         return nullptr;
@@ -72,9 +82,22 @@ int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posCompari
         return nullptr;
 
     case 1:
-        if(originalMatrix[fil][col] > matrixChange[fil][col]){
+        if(onEdge(fil, col, dimension )){
+
+            if(amplifyMatrix == 0){
+                if(originalMatrix[fil][col] > matrixChange[fil][col]) return matrixChange;
+            }
+            else{
+                if(originalMatrix[auxFill][auxCol] > matrixChange[fil][col]) return matrixChange;
+            }
+        }
+        else if(originalMatrix[auxFill][auxCol] > matrixChange[fil][col]){
             return matrixChange;
         }
+        else{
+            if(originalMatrix[auxFill][auxCol] > matrixChange[fil][col]) return matrixChange;
+        }
+
         return nullptr;
 
     default:
@@ -118,6 +141,7 @@ int* createKeyArray(int k) {
             nuevoArray[i] = array[i];
         }
         nuevoArray[tamanio] = nuevoDato;
+        countArray++;
 
         // Liberar memoria del arreglo anterior
         delete[] array;
@@ -134,3 +158,52 @@ int* createKeyArray(int k) {
     return array;
 }
 
+
+void value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int *columna, int *dimension, int posComparisonValue){
+    int contRotatedMatrix = 0;
+
+    if(onEdge(*fila, *columna, *dimension) || *dimension == 3){
+
+        while(contRotatedMatrix < 3){
+            matrix = changeMatrix(matrix, *dimension);
+            contRotatedMatrix++;
+
+            int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila, *columna, *dimension);
+
+            if(verifyMatrix != nullptr){
+                addMatrix(arrayLock, verifyMatrix);
+                originalMatrix = verifyMatrix;
+                index++;
+                break;
+            }
+
+            if(contRotatedMatrix == 3){
+                amplifyMatrix++;
+
+                if(amplifyMatrix == 2) break;
+
+                //aqui se determina cuando se amplia
+                contRotatedMatrix = 0;
+                *dimension+=2;
+                matrix = createMatrix(*dimension);
+
+                int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila++, *columna++, *dimension);
+
+                if(verifyMatrix != nullptr){
+                    addMatrix(arrayLock, verifyMatrix);
+                    originalMatrix = verifyMatrix;
+                    index++;
+                    break;
+                }
+            }
+        }
+
+
+
+    }
+
+    else{
+        std::cout << "Debe ir la parte en donde se reduce";
+    }
+
+}
