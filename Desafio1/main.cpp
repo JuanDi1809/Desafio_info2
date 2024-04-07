@@ -3,7 +3,8 @@
 #include "CrearCerradura.h"
 #include "CrearMatrices.h"
 
-int newamplifyMatrix = 0;
+int newAmplifyMatrix = 0;
+
 int main(){
 
     const int MINDIMENSION = 3;
@@ -16,7 +17,7 @@ int main(){
     int *key = createKeyArray(dimension); //Recibe de la dimension de la matriz para verificar que la fila y columna que ingresa en la llave no se salga
     const int keyDimension = findKeyDimension();
     int fila = key[0] - 1;
-    int columna = key[1] -1;
+    int columna = key[1] - 1;
 
     for(int i = 2; i < keyDimension; i++){
         int posComparisonValue = key[i];
@@ -27,20 +28,22 @@ int main(){
                 break;
             }
             else{
-                value1(originalMatrix, matrix, arrayLock, &fila, &columna, &dimension, key[i]);
-                if(newamplifyMatrix == 2){
+                value1(originalMatrix, matrix, arrayLock, &fila, &columna, &dimension, posComparisonValue);
+                newAmplifyMatrix = returnAmplifyMatrix();
+                if(newAmplifyMatrix == 2){
                     std::cout << "No se puede crear cerradura";
                     break;
                 }
-                newamplifyMatrix = 0;
+                newAmplifyMatrix = 0;
             }
 
         }
         else if(posComparisonValue == -1){
-            std::cout << "comparacion para -1";
+            valueMinus1(originalMatrix, matrix, arrayLock, &fila, &columna, &dimension, posComparisonValue);
+            newAmplifyMatrix = 0;
         }
         else{
-            std::cout << "Comparacion para 0";
+            valueisZero(originalMatrix, arrayLock);
         }
 
     }

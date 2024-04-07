@@ -44,7 +44,7 @@ int expandedVerify(int dimension);
  * @param col Columna donde esta el valor en la matriz
  * @return El puntero de la matriz cambiada o un puntero nulo
  */
-int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col);
+int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col,int dimension);
 
 /**
  * @brief oputa
@@ -54,6 +54,37 @@ int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posCompari
 int* createKeyArray(int k);
 
 int findKeyDimension();
+
+/**
+ * @brief value1
+ * @param originalMatrix
+ * @param matrix
+ * @param arrayLock
+ * @param fila
+ * @param columna
+ * @param dimension
+ * @param posComparisonValue
+ */
 void value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int *columna, int *dimension, int posComparisonValue);
 
+int returnAmplifyMatrix();
+
+/**
+ * @brief valueMinus1
+ * @param originalMatrix
+ * @param matrix
+ * @param arrayLock
+ * @param fila
+ * @param columna
+ * @param dimension
+ * @param posComparisonValue
+ */
+void valueMinus1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int *columna, int *dimension, int posComparisonValue);
+
+/**
+ * @brief valueisZero
+ * @param originalMatrix
+ * @param arrayLock
+ */
+void valueisZero(int **originalMatrix, int ***arrayLock);
 #endif // CREARCERRADURA_H

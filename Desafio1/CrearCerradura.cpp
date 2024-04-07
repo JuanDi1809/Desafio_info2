@@ -62,16 +62,16 @@ int expandedVerify(int dimension){
     return dimension;
 }
 
-int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col, int dimension){
-    int auxFill = fil--;
-    int auxCol = col--;
-
+int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posComparisonValue, int fil, int col){
 
     switch(posComparisonValue){
 
     case -1:
-        if(originalMatrix[auxFill][auxCol] < matrixChange[fil][col]){
-            return matrixChange;
+        if(amplifyMatrix == 1 ){
+            if(originalMatrix[fil - 1][col - 1] < matrixChange[fil][col]) return matrixChange;
+        }
+        else{
+            if(originalMatrix[fil][col] < matrixChange[fil][col]) return matrixChange;
         }
         return nullptr;
 
@@ -82,9 +82,19 @@ int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posCompari
         return nullptr;
 
     case 1:
-        if(onEdge(fil, col, dimension )){
 
-            if(amplifyMatrix == 0){
+        if(amplifyMatrix == 0){
+            std::cout << originalMatrix[fil][col] << " " << matrixChange[fil][col] ;
+            if(originalMatrix[fil][col] > matrixChange[fil][col]) return matrixChange;
+        }
+        else if(amplifyMatrix == 1){
+            if(originalMatrix[fil - 1][col - 1] > matrixChange[fil][col]) return matrixChange;
+        }
+
+        /*
+        if(onEdge(fil - 1, col - 1, dimension )){
+
+            if(amplifyMatrix == 0 || amplifyMatrix == 1){
                 if(originalMatrix[fil][col] > matrixChange[fil][col]) return matrixChange;
             }
             else{
@@ -97,7 +107,7 @@ int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posCompari
         else{
             if(originalMatrix[auxFill][auxCol] > matrixChange[fil][col]) return matrixChange;
         }
-
+        */
         return nullptr;
 
     default:
@@ -165,14 +175,16 @@ void value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int
     if(onEdge(*fila, *columna, *dimension) || *dimension == 3){
 
         while(contRotatedMatrix < 3){
+            showMatrix(matrix, *dimension);
             matrix = changeMatrix(matrix, *dimension);
             contRotatedMatrix++;
 
-            int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila, *columna, *dimension);
+            int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila, *columna);
 
             if(verifyMatrix != nullptr){
                 addMatrix(arrayLock, verifyMatrix);
                 originalMatrix = verifyMatrix;
+                matrix = verifyMatrix;
                 index++;
                 break;
             }
@@ -186,12 +198,15 @@ void value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int
                 contRotatedMatrix = 0;
                 *dimension+=2;
                 matrix = createMatrix(*dimension);
+                *fila++;
+                *columna++;
 
-                int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila++, *columna++, *dimension);
+                int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna + 1);
 
                 if(verifyMatrix != nullptr){
                     addMatrix(arrayLock, verifyMatrix);
                     originalMatrix = verifyMatrix;
+                    matrix = verifyMatrix;
                     index++;
                     break;
                 }
@@ -206,4 +221,52 @@ void value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int
         std::cout << "Debe ir la parte en donde se reduce";
     }
 
+}
+
+int returnAmplifyMatrix(){
+    return amplifyMatrix;
+}
+
+void valueMinus1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int *columna, int *dimension, int posComparisonValue){
+    int contRotatedMatrix = 0;
+
+    while(contRotatedMatrix < 3){
+        matrix = changeMatrix(matrix, *dimension);
+        contRotatedMatrix++;
+
+        int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna );
+
+        if(verifyMatrix != nullptr){
+            addMatrix(arrayLock, verifyMatrix);
+            showMatrix(verifyMatrix, *dimension);
+            originalMatrix = verifyMatrix;
+            matrix = verifyMatrix;
+            index++;
+            break;
+        }
+
+        if(contRotatedMatrix == 3){
+            amplifyMatrix++;
+
+           contRotatedMatrix = 0;
+           *dimension+=2;
+           matrix = createMatrix(*dimension);
+           *fila++;
+           *columna++;
+
+           int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna );
+
+           if(verifyMatrix != nullptr){
+                addMatrix(arrayLock, verifyMatrix);
+                originalMatrix = verifyMatrix;
+                matrix = verifyMatrix;
+                index++;
+                break;
+            }
+        }
+    }
+}
+
+void valueisZero(int **originalMatrix, int ***arrayLock){
+    addMatrix(arrayLock, originalMatrix);
 }
