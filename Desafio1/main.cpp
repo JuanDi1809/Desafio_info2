@@ -9,8 +9,8 @@ int main(){
 
     const int MINDIMENSION = 3;
     int dimension = expandedVerify(MINDIMENSION);
-    int **matrix = createMatrix(dimension);
-    int **originalMatrix = matrix;
+    int **originalMatrix = createMatrix(dimension);
+    int **matrix = copyMatrix(originalMatrix, dimension);
     int ***arrayLock = arrayCreateMatrix(dimension);
 
 
@@ -40,13 +40,25 @@ int main(){
         }
         else if(posComparisonValue == -1){
             valueMinus1(originalMatrix, matrix, arrayLock, &fila, &columna, &dimension, posComparisonValue);
-            newAmplifyMatrix = 0;
+            showMatrix(matrix, dimension);
         }
         else{
             valueisZero(originalMatrix, arrayLock);
         }
 
     }
+
+    // Liberar memoria de originalMatrix
+    deleteMatrix(originalMatrix, dimension);
+
+    // Liberar memoria de matrix
+    deleteMatrix(matrix, dimension);
+
+    // Liberar arrayLock
+    deleteArrayLock(arrayLock, dimension);
+
+    // Liberar key
+    delete[] key;
 
 }
 

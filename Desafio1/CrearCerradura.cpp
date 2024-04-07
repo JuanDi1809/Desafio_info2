@@ -20,26 +20,6 @@ bool comparisonCenterCoord (int fil,int col, int dimension ){
     return false;
 }
 
-int dimensionMatrix(int fil, int col){
-    if(fil > col || fil==col){
-        ++fil;
-        if(fil % 2 == 0){
-            return ++fil;
-        }
-        return fil;
-    }
-    else if(fil < col) {
-        ++col;
-        if(col % 2 == 0){
-            return ++col;
-        }
-        return col;
-    }
-    else if(fil == 0 || col == 0){
-        return 3;
-    }
-    return 0;
-}
 int findKeyDimension(){
     return countArray;
 }
@@ -114,56 +94,52 @@ int  **comparisonMatrix(int **originalMatrix, int **matrixChange, int posCompari
         return nullptr;
     }
 }
-int* createKeyArray(int k) {
-    // Solicitar al usuario los dos primeros valores menores o iguales a k
-    int primerValor, segundoValor;
+int* createKeyArray(int dimension) {
+    // Solicitar al usuario los dos primeros valores menores o iguales a dimension
+    int firstValue, secondValue;
     do {
-        std::cout << "Ingrese el primer valor (menor o igual a " << k << "): ";
-        std::cin >> primerValor;
-    } while (primerValor > k);
+        std::cout << "Ingrese el primer valor (menor o igual a " << dimension << "): ";
+        std::cin >> firstValue;
+    } while (firstValue > dimension);
 
     do {
-        std::cout << "Ingrese el segundo valor (menor o igual a " << k << "): ";
-        std::cin >> segundoValor;
-    } while (segundoValor > k);
+        std::cout << "Ingrese el segundo valor (menor o igual a " << dimension << "): ";
+        std::cin >> secondValue;
+    } while (secondValue > dimension);
 
     // Creamos un puntero al arreglo con espacio para los dos primeros elementos
     int* array = new int[2];
-    array[0] = primerValor;
-    array[1] = segundoValor;
+    array[0] = firstValue;
+    array[1] = secondValue;
     int tamanio = 2;
 
     // Variable para almacenar la respuesta del usuario
-    char respuesta;
+    char answer;
 
     // Bucle para solicitar nuevos datos al usuario
     do {
         // Solicitar nuevo dato al usuario
-        int nuevoDato;
+        int newDate;
         do {
             std::cout << "Ingrese un nuevo numero (-1, 0, 1): ";
-            std::cin >> nuevoDato;
-        } while (nuevoDato != -1 && nuevoDato != 0 && nuevoDato != 1);
+            std::cin >> newDate;
+        } while (newDate != -1 && newDate != 0 && newDate != 1);
 
         // Redimensionar el arreglo para agregar el nuevo dato
-        int* nuevoArray = new int[tamanio + 1];
+        int* newArray = new int[tamanio + 1];
         for (int i = 0; i < tamanio; ++i) {
-            nuevoArray[i] = array[i];
+            newArray[i] = array[i];
         }
-        nuevoArray[tamanio] = nuevoDato;
+        newArray[tamanio] = newDate;
         countArray++;
-
-        // Liberar memoria del arreglo anterior
-        delete[] array;
-
         // Actualizar puntero al nuevo arreglo
-        array = nuevoArray;
+        array = newArray;
         ++tamanio;
 
         // Preguntar al usuario si desea ingresar otro dato
         std::cout << "¿Desea ingresar nuevo numero? S para si, N para no: ";
-        std::cin >> respuesta;
-    } while (respuesta == 'S' || respuesta == 's');
+        std::cin >> answer;
+    } while (answer == 'S' || answer == 's');
 
     return array;
 }
@@ -182,6 +158,11 @@ void value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int
             int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila, *columna);
 
             if(verifyMatrix != nullptr){
+                // Liberar memoria de la matriz originalMatrix
+                deleteMatrix(originalMatrix, *dimension);
+                // Liberar memoria de la matriz matrix
+                deleteMatrix(matrix, *dimension);
+
                 addMatrix(arrayLock, verifyMatrix);
                 originalMatrix = verifyMatrix;
                 matrix = verifyMatrix;
@@ -197,6 +178,9 @@ void value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int
                 //aqui se determina cuando se amplia
                 contRotatedMatrix = 0;
                 *dimension+=2;
+                // Liberar memoria de la matriz matrix
+                deleteMatrix(matrix, *dimension);
+
                 matrix = createMatrix(*dimension);
                 *fila++;
                 *columna++;
@@ -204,6 +188,11 @@ void value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int
                 int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna + 1);
 
                 if(verifyMatrix != nullptr){
+                    // Liberar memoria de la matriz originalMatrix
+                    deleteMatrix(originalMatrix, *dimension);
+                    // Liberar memoria de la matriz matrix
+                    deleteMatrix(matrix, *dimension);
+
                     addMatrix(arrayLock, verifyMatrix);
                     originalMatrix = verifyMatrix;
                     matrix = verifyMatrix;
@@ -234,22 +223,29 @@ void valueMinus1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila
         matrix = changeMatrix(matrix, *dimension);
         contRotatedMatrix++;
 
+
         int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna );
 
         if(verifyMatrix != nullptr){
+            // Liberar memoria de la matriz originalMatrix
+            deleteMatrix(originalMatrix, *dimension);
+            // Liberar memoria de la matriz matrix
+            deleteMatrix(matrix, *dimension);
+
             addMatrix(arrayLock, verifyMatrix);
-            showMatrix(verifyMatrix, *dimension);
             originalMatrix = verifyMatrix;
-            matrix = verifyMatrix;
+            matrix = copyMatrix(originalMatrix, *dimension);
             index++;
             break;
         }
 
         if(contRotatedMatrix == 3){
-            amplifyMatrix++;
-
+           amplifyMatrix++;
            contRotatedMatrix = 0;
            *dimension+=2;
+           // Liberar memoria de la matriz matrix
+           deleteMatrix(matrix, *dimension);
+
            matrix = createMatrix(*dimension);
            *fila++;
            *columna++;
@@ -257,9 +253,14 @@ void valueMinus1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila
            int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna );
 
            if(verifyMatrix != nullptr){
+               // Liberar memoria de la matriz originalMatrix
+               deleteMatrix(originalMatrix, *dimension);
+               // Liberar memoria de la matriz matrix
+               deleteMatrix(matrix, *dimension);
+
                 addMatrix(arrayLock, verifyMatrix);
                 originalMatrix = verifyMatrix;
-                matrix = verifyMatrix;
+                matrix = copyMatrix(originalMatrix, *dimension);
                 index++;
                 break;
             }

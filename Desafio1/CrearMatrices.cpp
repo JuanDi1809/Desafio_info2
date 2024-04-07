@@ -21,23 +21,24 @@ int **createMatrix(int dimension){
     return newMatrix;
 }
 
-void deleteMemoryUsed(int **matrix, int dimension){
+void deleteMatrix(int **matrix, int dimension){
     for(int i = 0; i < dimension; i++){
         delete[] matrix[i];
     }
     delete[] matrix;
+    matrix = nullptr;
 }
 
-/*
-int countRotations(){
-    //función que se encarga de monitorear las veces que rota la matriz
-    //no recibe parametros
-    //constantemente se debe llamar para hacer seguimiento usando la variable
-    //global
-
-    return countRotationsValue++;
+void deleteArrayLock(int ***arrayLock, int dimension) {
+    for (int i = 0; i < dimension - 1; i++) {
+        for (int j = 0; j < dimension - 1; j++) {
+            delete[] arrayLock[i][j];
+        }
+        delete[] arrayLock[i];
+    }
+    delete[] arrayLock;
+    arrayLock = nullptr;
 }
-*/
 
 int **changeMatrix(int **defaultMatrix, int dimension){
 
@@ -51,7 +52,7 @@ int **changeMatrix(int **defaultMatrix, int dimension){
         }
         staticColumns--;
     }
-    //countRotations();
+
     return rotatedMatrix;
 }
 
@@ -64,4 +65,15 @@ void showMatrix(int **matrix, int dimension){
         std::cout<<std::endl;
     }
     std::cout<<std::endl;
+}
+
+int **copyMatrix (int **originalMatrix, int dimension){
+    int **copiedMatrix = createMatrix(dimension);
+
+    for (int i = 0; i < dimension; i++) {
+        for (int j = 0; j < dimension; j++) {
+            copiedMatrix[i][j] = originalMatrix[i][j];
+        }
+    }
+    return copiedMatrix;
 }
