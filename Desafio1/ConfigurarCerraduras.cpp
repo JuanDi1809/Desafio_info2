@@ -1,4 +1,3 @@
-
 int i = 0;
 
 int ***arrayCreateMatrix(int dimension){

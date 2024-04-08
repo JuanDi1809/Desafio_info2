@@ -27,18 +27,27 @@ int findKeyDimension(){
 
 int expandedVerify(int dimension){
     int verify;
+    bool continueLoop = true;
 
-    do{
+    do {
         std::cout << "Deseas que la matriz sea " << dimension << "*" << dimension << " 0 (no) y 1 (si): ";
         std::cin >> verify;
-        if(verify == 1 ){
-            return dimension;
-        }
-        else{
-            dimension += 2;
+
+        while(std::cin.fail()) {
+            std::cout << "Error: entrada no valida";
+            continueLoop = false;
         }
 
-    }while(verify == 0);
+        if (verify == 1) {
+            return dimension;
+        } else if(verify == 0){
+            dimension += 2;
+          }
+        else{
+            std::cout << "Error: entrada no valida" << std::endl;
+        }
+
+    } while (continueLoop);
 
     return dimension;
 }
