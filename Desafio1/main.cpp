@@ -24,7 +24,7 @@ int main(){
 
         if(posComparisonValue == 1){
             if(matrix[fila][columna] == 1){
-                std::cout << "No hay cerradura";
+                std::cout << "No se puede crear cerradura";
                 break;
             }
             else{
@@ -37,10 +37,6 @@ int main(){
                 originalMatrix = newMatrix;
                 matrix = copyMatrix(originalMatrix, dimension);
                 showMatrix(newMatrix, dimension);
-
-                //xd
-                deleteMatrix(newMatrix, dimension);
-                deleteMatrix(originalMatrix, dimension);
                 newAmplifyMatrix = 0;
             }
 
@@ -48,24 +44,14 @@ int main(){
         else if(posComparisonValue == -1){
             int **newMatrix = valueMinus1(originalMatrix, matrix, arrayLock, &fila, &columna, &dimension, posComparisonValue);
             showMatrix(newMatrix, dimension);
-            deleteMatrix(newMatrix, dimension);
             originalMatrix = newMatrix;
             matrix = copyMatrix(originalMatrix, dimension);
-            deleteMatrix(matrix, dimension);
         }
         else{
             valueisZero(originalMatrix, arrayLock);
         }
 
     }
-
-    // Liberar memoria de originalMatrix
-
-    //Liberar memoria de matrix
-    //deleteMatrix(matrix, dimension);
-
-    // Liberar arrayLock
-
 
     // Liberar key
     delete[] key;
