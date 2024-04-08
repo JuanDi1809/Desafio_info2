@@ -146,7 +146,6 @@ int **value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, in
 
         while(contRotatedMatrix < 3){
             matrix = changeMatrix(matrix, *dimension);
-            showMatrix(matrix, *dimension);
             contRotatedMatrix++;
 
             int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila, *columna);
@@ -185,7 +184,6 @@ int **value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, in
     else{
         while(contRotatedMatrix < 3){
             matrix = changeMatrix(matrix, *dimension);
-            showMatrix(matrix, *dimension);
             contRotatedMatrix++;
 
             int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila, *columna);
@@ -207,7 +205,6 @@ int **value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, in
                 *columna -= 1;
 
                 matrix = createMatrix(*dimension);
-                showMatrix(matrix, *dimension);
                 int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna);
 
                 if(verifyMatrix != nullptr){
