@@ -58,7 +58,7 @@ int findKeyDimension();
  * @param dimension El puntero a la dimensión de las matrices
  * @param posComparisonValue El valor de comparación para determinar las operaciones a realizar
  */
-void value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int *columna, int *dimension, int posComparisonValue);
+int **value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int *columna, int *dimension, int posComparisonValue);
 
 int returnAmplifyMatrix();
 
@@ -72,7 +72,7 @@ int returnAmplifyMatrix();
  * @param dimension El puntero a la dimensión de las matrices
  * @param posComparisonValue El valor de comparación para determinar las operaciones a realizar
  */
-void valueMinus1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int *columna, int *dimension, int posComparisonValue);
+int** valueMinus1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, int *columna, int *dimension, int posComparisonValue);
 
 /**
  * @brief valueisZero Comparaciones cuando el valor de comparacion es 0, como el valor tiene que ser igual solo agrega la matriz originalMatrix
