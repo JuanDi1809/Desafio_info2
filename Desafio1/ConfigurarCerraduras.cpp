@@ -1,4 +1,3 @@
-int i = 0;
 
 int ***arrayCreateMatrix(int dimension){
 
@@ -8,8 +7,8 @@ int ***arrayCreateMatrix(int dimension){
     return matrices;
 }
 
-void addMatrix(int ***arrayMatrix, int **newMatrix ){ //El valor del index lo ponemos en el ciclo donde verificamos si la matriz es valida para agregar
-    arrayMatrix[i] = newMatrix;
+void addMatrix(int ***arrayMatrix, int **newMatrix, int index ){ //El valor del index lo ponemos en el ciclo donde verificamos si la matriz es valida para agregar
+    arrayMatrix[index] = newMatrix;
 }
 
 

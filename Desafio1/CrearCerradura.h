@@ -80,4 +80,20 @@ int** valueMinus1(int **originalMatrix, int **matrix, int ***arrayLock, int *fil
  * @param arrayLock El arreglo tridimensional para almacenar matrices resultantes
  */
 void valueisZero(int **originalMatrix, int ***arrayLock);
+
+/**
+ * @brief resultDimensionsArray
+ * @param previous
+ * @param counter
+ * @param dimension
+ * @return
+ */
+int *resultDimensionsArray(int *previous, int &counter, int dimension);
+
+/**
+ * @brief showMatrixArray
+ * @param array
+ * @param dimension
+ */
+void showMatrixArray(int ***array, int *arrayDimension, int dimensionArray);
 #endif // CREARCERRADURA_H

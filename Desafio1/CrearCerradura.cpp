@@ -2,10 +2,12 @@
 #include "CrearMatrices.h"
 #include "ConfigurarCerraduras.h"
 
-int index = 0;
+//Variables globales
+int index = 1;
 int amplifyMatrix = 0;
 int reduceMatrix = 0;
 int countArray = 2;
+int countMatrixArray = 0;
 
 bool onEdge(int fila, int columna, int dimension) {
     return (fila == 0 || fila == dimension - 1 || columna == 0 || columna == dimension - 1);
@@ -151,7 +153,10 @@ int **value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, in
             int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila, *columna);
 
             if(verifyMatrix != nullptr){
-                addMatrix(arrayLock, verifyMatrix);
+                //Liberando memoria
+                deleteMatrix(originalMatrix, *dimension);
+
+                addMatrix(arrayLock, verifyMatrix, index);
                 index++;
                 return verifyMatrix;
 
@@ -172,7 +177,10 @@ int **value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, in
                 int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna);
 
                 if(verifyMatrix != nullptr){
-                    addMatrix(arrayLock, verifyMatrix);
+                    //Liberando memoria
+                    deleteMatrix(originalMatrix, *dimension);
+
+                    addMatrix(arrayLock, verifyMatrix, index);
                     index++;
                     amplifyMatrix = 0;
                     return verifyMatrix;
@@ -189,7 +197,10 @@ int **value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, in
             int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila, *columna);
 
             if(verifyMatrix != nullptr){
-                addMatrix(arrayLock, verifyMatrix);
+                //Liberando memoria
+                deleteMatrix(originalMatrix, *dimension);
+
+                addMatrix(arrayLock, verifyMatrix, index);
                 index++;
                 return verifyMatrix;
 
@@ -208,8 +219,10 @@ int **value1(int **originalMatrix, int **matrix, int ***arrayLock, int *fila, in
                 int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna);
 
                 if(verifyMatrix != nullptr){
+                    //Liberando memoria
+                    deleteMatrix(originalMatrix, *dimension);
 
-                    addMatrix(arrayLock, verifyMatrix);
+                    addMatrix(arrayLock, verifyMatrix, index);
                     index++;
                     reduceMatrix = 0;
                     return verifyMatrix;
@@ -232,7 +245,10 @@ int **valueMinus1(int **originalMatrix, int **matrix, int ***arrayLock, int *fil
         int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna );
 
         if(verifyMatrix != nullptr){
-            addMatrix(arrayLock, verifyMatrix);
+            //Liberando memoria
+            deleteMatrix(originalMatrix, *dimension);
+
+            addMatrix(arrayLock, verifyMatrix, index);
             index++;
             return verifyMatrix;
         }
@@ -246,8 +262,10 @@ int **valueMinus1(int **originalMatrix, int **matrix, int ***arrayLock, int *fil
             int **verifyMatrix = comparisonMatrix(originalMatrix, matrix, posComparisonValue, *fila , *columna);
 
             if(verifyMatrix != nullptr){
+                //Liberando memoria
+                deleteMatrix(originalMatrix, *dimension);
 
-                addMatrix(arrayLock, verifyMatrix);
+                addMatrix(arrayLock, verifyMatrix, index);
                 index++;
                 return verifyMatrix;
             }
@@ -258,5 +276,25 @@ int **valueMinus1(int **originalMatrix, int **matrix, int ***arrayLock, int *fil
 }
 
 void valueisZero(int **originalMatrix, int ***arrayLock){
-    addMatrix(arrayLock, originalMatrix);
+    addMatrix(arrayLock, originalMatrix, index);
+}
+
+int *resultDimensionsArray(int *previous, int &counter, int dimension){
+    int *newArray = new int[counter + 1];
+    for(int i = 0; i < counter; i++){
+        newArray[i] = previous[i];
+        countMatrixArray++;
+    }
+
+    newArray[counter] = dimension;
+    counter++;
+
+    return newArray;
+}
+
+void showMatrixArray(int ***array, int *arrayDimension, int dimensionArray){
+    for(int i = 0; i < dimensionArray - 2;i++){
+        showMatrix(array[i], arrayDimension[i]);
+    }
+
 }

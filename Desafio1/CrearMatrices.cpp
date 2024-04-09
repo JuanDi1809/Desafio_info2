@@ -1,5 +1,4 @@
 #include <iostream>
-//int countRotationsValue = 0;
 
 int **createMatrix(int dimension){
 
@@ -26,6 +25,7 @@ void deleteMatrix(int **matrix, int dimension){
         delete[] matrix[i];
     }
     delete[] matrix;
+    matrix = nullptr;
 }
 
 void deleteArrayLock(int ***arrayLock, int dimension) {

@@ -13,7 +13,7 @@ int ***arrayCreateMatrix( int dimension);
  * @param arrayMatrix El arreglo tridimensional para almacenar matrices resultantes
  * @param newMatrix L matriz a agregar
  */
-void addMatrix(int ***arrayMatrix, int **newMatrix);
+void addMatrix(int ***arrayMatrix, int **newMatrix, int index);
 
 
 #endif // CONFIGURARCERRADURAS_H

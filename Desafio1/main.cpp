@@ -8,10 +8,13 @@ int newAmplifyMatrix = 0;
 int main(){
 
     const int MINDIMENSION = 3;
+    int size = 0;
+    int *arrayDimension = nullptr;
     int dimension = expandedVerify(MINDIMENSION);
     int **originalMatrix = createMatrix(dimension);
     int **matrix = copyMatrix(originalMatrix, dimension);
     int ***arrayLock = arrayCreateMatrix(dimension);
+    addMatrix(arrayLock, originalMatrix, 0);
 
 
     int *key = createKeyArray(dimension); //Recibe de la dimension de la matriz para verificar que la fila y columna que ingresa en la llave no se salga
@@ -36,22 +39,39 @@ int main(){
                 }
                 originalMatrix = newMatrix;
                 matrix = copyMatrix(originalMatrix, dimension);
-                showMatrix(newMatrix, dimension);
+                showMatrix(originalMatrix, dimension);
                 newAmplifyMatrix = 0;
+                arrayDimension = resultDimensionsArray(arrayDimension, size, dimension);
             }
 
         }
         else if(posComparisonValue == -1){
             int **newMatrix = valueMinus1(originalMatrix, matrix, arrayLock, &fila, &columna, &dimension, posComparisonValue);
-            showMatrix(newMatrix, dimension);
             originalMatrix = newMatrix;
             matrix = copyMatrix(originalMatrix, dimension);
+            showMatrix(originalMatrix,dimension);
+            arrayDimension = resultDimensionsArray(arrayDimension, size, dimension);
         }
         else{
             valueisZero(originalMatrix, arrayLock);
+            showMatrix(originalMatrix, dimension);
+            arrayDimension = resultDimensionsArray(arrayDimension, size, dimension);
         }
 
     }
+
+    //muestra el array de las matrices que cumplen cerradura
+    std::cout<<"\nDimensiones: "<<std::endl;
+    for (int i = 0; i < size; ++i) {
+        std::cout << arrayDimension[i] << " ";
+    }
+
+    //Liberar originalMatrix
+    deleteMatrix(originalMatrix, dimension);
+
+    //Liberar matrix
+    deleteMatrix(matrix, dimension);
+
 
     // Liberar key
     delete[] key;
